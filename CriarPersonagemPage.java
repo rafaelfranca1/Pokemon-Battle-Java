@@ -6,9 +6,7 @@ public class CriarPersonagemPage extends JPanel{
     private JButton personagem1;
     private JButton personagem2;
     private Font Fonte = DefinirFonte.fonte();
-    private JLabel setaSelection = new JLabel(new ImageIcon("assets/battleMenu/seta.png"));
 
-    
     public CriarPersonagemPage(Game frame) {
         editar(frame);
     }

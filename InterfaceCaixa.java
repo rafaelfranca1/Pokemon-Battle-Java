@@ -1,8 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.io.Serializable;
 
-public class InterfaceCaixa extends JPanel implements Serializable {
+public class InterfaceCaixa extends JPanel {
     private CardLayout maincardLayout = new CardLayout(); 
     private JPanel mainCardPanel = new JPanel(maincardLayout);
     private JPanel battleLayoutPanel = new JPanel(new GridLayout(1, 2)); 
