@@ -1,6 +1,10 @@
-import java.io.*;
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Image;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.Serializable;
+
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
 public class Pokemon implements Serializable {
     private String nome;
@@ -93,6 +97,11 @@ public class Pokemon implements Serializable {
     // pegar a vidaMaxima
     public int getVidaMaxima() {
         return vidaMaxima;
+    }
+
+    // definir a vidaMaxima
+    public void setVidaMaxima(int vidaMaxima) {
+        this.vidaMaxima = vidaMaxima;
     }
 
     // Pegar a label da imagem

@@ -1,5 +1,16 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+
+import javax.swing.AbstractAction;
+import javax.swing.ImageIcon;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 public class InterfaceCaixa extends JPanel {
     private CardLayout maincardLayout = new CardLayout(); 
@@ -9,11 +20,34 @@ public class InterfaceCaixa extends JPanel {
     private JPanel leftComponent = new JPanel(leftcardLayout);
     private JLabel msgLabel = new JLabel();
     private Font Fonte = DefinirFonte.fonte();
+    private Runnable onMessageAdvance = null;
+    private boolean aguardandoInput = false;
 
     public InterfaceCaixa(Game frame) {
         Player.setInterfaceCaixa(this);
         Enemy.setInterfaceCaixa(this);
         Enemy.setGameFrame(frame);
+        
+        // Configurar atalho de teclado SPACE para avançar mensagens
+        mainCardPanel.getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("SPACE"), "spacePressed");
+        mainCardPanel.getActionMap().put("spacePressed", new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (aguardandoInput) {
+                    avancarMensagem();
+                }
+            }
+        });
+        
+        // Permitir clique no msgLabel para avançar
+        msgLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                if (aguardandoInput) {
+                    avancarMensagem();
+                }
+            }
+        });
         
         msgTexto("O  que  " + Player.pokemonSelecionado.getNome().toUpperCase(), "vai  fazer?");
         msgLabel.setIcon(new ImageIcon("assets/battleElements/ataque background.png")); 
@@ -44,25 +78,37 @@ public class InterfaceCaixa extends JPanel {
         leftcardLayout.show(leftComponent, nomeLayout);
     }
     
-    // mostra qual ataque foi usado por 3 segundos e depois volta para a tela de batalha
-    public void mostrarAtaque() {
+    // mostra qual ataque foi usado e aguarda SPACE ou clique para continuar
+    public void mostrarAtaque(Runnable callback) {
         msgLabel.setIcon(new ImageIcon("assets/battleElements/ataque background.png"));
         mainCardPanel.add(msgLabel, "MsgLabel");
         maincardLayout.show(mainCardPanel, "MsgLabel"); 
         revalidate();
-    
-        Timer timer = new Timer(1000, e -> {
+        
+        aguardandoInput = true;
+        onMessageAdvance = () -> {
             mainCardPanel.remove(msgLabel);
             msgLabel.removeAll(); 
             maincardLayout.show(mainCardPanel, "BattleLayoutPanel"); 
             revalidate();
             repaint();
-        });
-        timer.setRepeats(false);
-        timer.start();
+            aguardandoInput = false;
+            if (callback != null) {
+                callback.run();
+            }
+        };
+    }
+    
+    private void avancarMensagem() {
+        if (aguardandoInput && onMessageAdvance != null) {
+            Runnable action = onMessageAdvance;
+            onMessageAdvance = null;
+            aguardandoInput = false;
+            action.run();
+        }
     }
 
-    public void mostrarAtaqueInimigo() {
+    public void mostrarAtaqueInimigo(Runnable callback) {
         String[] poderes = {"scratch", "quick attack", "tackle", "bite"};
         String nomeAtaque = poderes[(int) (Math.random() * poderes.length)];
 
@@ -71,54 +117,63 @@ public class InterfaceCaixa extends JPanel {
         mainCardPanel.add(msgLabel, "MsgLabel");
         maincardLayout.show(mainCardPanel, "MsgLabel"); 
         revalidate();
-    
-        Timer timer = new Timer(1000, e -> {
+        
+        aguardandoInput = true;
+        onMessageAdvance = () -> {
             mainCardPanel.remove(msgLabel);
             msgLabel.removeAll(); 
             maincardLayout.show(mainCardPanel, "BattleLayoutPanel"); 
             revalidate();
             repaint();
-        });
-        timer.setRepeats(false);
-        timer.start();
+            aguardandoInput = false;
+            if (callback != null) {
+                callback.run();
+            }
+        };
     }
     
-    public void mostrarDerrotaInimigo() {
+    public void mostrarDerrotaInimigo(Runnable callback) {
         msgTexto(Enemy.inimigoAtual.getNome().toUpperCase() + "  inimigo", "foi  derrotado!");
         
         msgLabel.setIcon(new ImageIcon("assets/battleElements/ataque background.png"));
         mainCardPanel.add(msgLabel, "MsgLabel");
         maincardLayout.show(mainCardPanel, "MsgLabel"); 
         revalidate();
-    
-        Timer timer = new Timer(1000, e -> {
+        
+        aguardandoInput = true;
+        onMessageAdvance = () -> {
             mainCardPanel.remove(msgLabel);
             msgLabel.removeAll(); 
             maincardLayout.show(mainCardPanel, "BattleLayoutPanel"); 
             revalidate();
             repaint();
-        });
-        timer.setRepeats(false);
-        timer.start();
+            aguardandoInput = false;
+            if (callback != null) {
+                callback.run();
+            }
+        };
     }
 
-    public void mostrarDerrotaPlayer() {
+    public void mostrarDerrotaPlayer(Runnable callback) {
         msgTexto(Player.pokemonSelecionado.getNome().toUpperCase() + "  foi  derrotado!", "");
         
         msgLabel.setIcon(new ImageIcon("assets/battleElements/ataque background.png"));
         mainCardPanel.add(msgLabel, "MsgLabel");
         maincardLayout.show(mainCardPanel, "MsgLabel"); 
         revalidate();
-    
-        Timer timer = new Timer(1000, e -> {
+        
+        aguardandoInput = true;
+        onMessageAdvance = () -> {
             mainCardPanel.remove(msgLabel);
             msgLabel.removeAll(); 
             maincardLayout.show(mainCardPanel, "BattleLayoutPanel"); 
             revalidate();
             repaint();
-        });
-        timer.setRepeats(false);
-        timer.start();
+            aguardandoInput = false;
+            if (callback != null) {
+                callback.run();
+            }
+        };
     }
 
     public void limparMsgTexto() {

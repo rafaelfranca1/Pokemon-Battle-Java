@@ -18,22 +18,51 @@ Esse projeto desenvolvido  como parte de um projeto acadêmico na disciplina de 
 Para utilizar o Pokemon Battle Simulator, você precisará ter instalado:
 
 - **Java Development Kit (JDK)** 8 ou superior.
-- **Ambiente de Desenvolvimento Java**: Recomendamos o uso de IDEs como Eclipse ou IntelliJ IDEA para facilitar o desenvolvimento e execução do projeto.
+- **PowerShell** (para Windows) ou terminal equivalente.
 
 ## Instalação
 
 Siga estas etapas simples para começar:
 
-1. Clone o repositório para o seu ambiente local utilizando o comando `git clone https://github.com/seu-usuario/pokemon-battle-simulator.git`.
-2. Abra o projeto em seu ambiente de desenvolvimento Java.
+1. Clone o repositório para o seu ambiente local:
+```bash
+git clone https://github.com/rafaelfranca1/Pokemon-Battle-Java.git
+cd Pokemon-Battle-Java
+```
 
-## Como Usar
+2. Baixe a biblioteca Gson (necessária para salvar/carregar partidas):
+```powershell
+Invoke-WebRequest -Uri "https://repo1.maven.org/maven2/com/google/code/gson/gson/2.10.1/gson-2.10.1.jar" -OutFile "gson-2.10.1.jar"
+```
 
-Para iniciar uma emocionante batalha Pokémon:
+## Como Jogar
 
-1. Compile e execute o projeto em seu ambiente de desenvolvimento.
-2. Selecione os Pokémon que deseja utilizar na batalha.
-3. Inicie a simulação da batalha e acompanhe os resultados na interface gráfica.
+### Compilar e Executar
+
+1. Compile todos os arquivos Java:
+```powershell
+javac -cp ".;gson-2.10.1.jar" *.java
+```
+
+2. Execute o jogo:
+```powershell
+java -cp ".;gson-2.10.1.jar" Main
+```
+
+### Controles
+
+- **Mouse**: Clique nos botões e opções
+- **Tecla SPACE**: Avança diálogos e mensagens de batalha
+- **Clique no texto**: Também avança mensagens durante as batalhas
+
+### Gameplay
+
+1. Crie seu personagem e escolha seu nome
+2. Selecione seu Pokémon inicial (Bulbasaur, Charmander ou Squirtle)
+3. Batalhe contra diversos Pokémon inimigos
+4. Use ataques e itens de cura estrategicamente
+5. Evolua seu Pokémon conforme ganha experiência
+6. Salve seu progresso ao sair do jogo
 
 ## Autores
 

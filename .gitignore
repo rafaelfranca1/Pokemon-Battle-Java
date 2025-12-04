@@ -1,2 +1,4 @@
 *.class
-player_data.dat
+saves/
+gson-2.10.1.jar
+.vscode/

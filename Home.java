@@ -1,7 +1,12 @@
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Font;
 import java.io.File;
 
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Home extends JPanel {
     private Font Fonte;
@@ -59,9 +64,9 @@ public class Home extends JPanel {
         JButton apagarButton = new JButton("Apagar Save");
         apagarButton.setFont(Fonte.deriveFont(Font.PLAIN, 20));
         apagarButton.addActionListener(e -> {
-            File file = new File("player_data.dat");
-            if (file.exists()) {
-                file.delete();
+            File fileJson = new File("saves/player_data.json");
+            if (fileJson.exists()) {
+                fileJson.delete();
             }
 
             System.exit(0);

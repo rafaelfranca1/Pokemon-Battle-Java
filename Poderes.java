@@ -1,5 +1,10 @@
-import javax.swing.*;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class Poderes extends JPanel {
     private InterfaceCaixa painel;
@@ -83,22 +88,20 @@ public class Poderes extends JPanel {
             
             painel.limparMsgTexto();
             painel.msgTexto(Player.pokemonSelecionado.getNome().toUpperCase() + "  usou", nome.toUpperCase() + "!");
-            painel.mostrarAtaque();
-
-            Timer timer = new Timer(1000, f -> {
+            
+            // Mostrar ataque e aguardar input do usuário
+            painel.mostrarAtaque(() -> {
+                // Após usuário avançar, executar ataque
                 Player.atacar();
 
+                // Se inimigo sobreviveu, mostrar ataque dele
                 if (Enemy.inimigoAtual.getVida() > 0) {
-                    painel.mostrarAtaqueInimigo();
-                    Timer timer2 = new Timer(1000, g -> {
+                    painel.mostrarAtaqueInimigo(() -> {
+                        // Após usuário avançar, inimigo ataca
                         Enemy.atacar();
                     });
-                    timer2.setRepeats(false);
-                    timer2.start();
                 }
             });
-            timer.setRepeats(false);
-            timer.start();
         });
         botao.setContentAreaFilled(false); 
         botao.setBorderPainted(false);

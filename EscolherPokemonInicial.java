@@ -1,6 +1,11 @@
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
+import java.awt.BorderLayout;
+import java.awt.Font;
+import java.awt.event.ActionListener;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 public class EscolherPokemonInicial extends JPanel{
 
@@ -19,7 +24,7 @@ public class EscolherPokemonInicial extends JPanel{
 
         ActionListener nextPage = e -> {
             String pokemonEscolhido = Player.pokemonSelecionado.getNome();
-            Tutorial tutorial = new Tutorial(frame, new String[]{ "Incrivel,  " + Player.nome + "!", pokemonEscolhido + "Excelente escolha  para  comecar.", "Boa  sorte  em  sua  Aventura  Pokemon!" }, new Home(frame));
+            Tutorial tutorial = new Tutorial(frame, new String[]{ "Incrivel,  " + Player.nome + "!", pokemonEscolhido + ", excelente escolha  para  comecar.", "Boa  sorte  em  sua  Aventura  Pokemon!" }, new Home(frame));
             frame.mudarTela(tutorial);
         };
 

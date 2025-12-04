@@ -2,7 +2,6 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import javax.swing.*;
 
 public class Enemy {
     public static ArrayList<Pokemon> inimigos = new ArrayList<>();
@@ -81,9 +80,7 @@ public class Enemy {
         System.out.println("O pokemon inimigo atacou o " + Player.pokemonSelecionado.getNome() + " e causou 10 de dano");
         if(Player.pokemonSelecionado.getVida() <= 0) {
             System.out.println("O pokemon do player foi derrotado");
-            painel.mostrarDerrotaPlayer();
-            Timer timer = new Timer(1000, e -> {
-                
+            painel.mostrarDerrotaPlayer(() -> {
                 try {
                     PokemonsBatle.instance.atualizarVidaPlayer();
                     Player.resultado = false;
@@ -95,10 +92,9 @@ public class Enemy {
                 Final finalPanel = new Final();
                 frame.mudarTela(finalPanel);
             });
-            timer.setRepeats(false);
-            timer.start();
+        } else {
+            PokemonsBatle.instance.atualizarVidaPlayer();
         }
-        PokemonsBatle.instance.atualizarVidaPlayer();
     }
 
     public static void trocarInimigo() {
