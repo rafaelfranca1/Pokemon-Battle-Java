@@ -13,6 +13,13 @@ Esse projeto desenvolvido  como parte de um projeto acadêmico na disciplina de 
 - **Itens de Cura**: Durante as batalhas, você pode usar itens de cura para manter seus Pokémon saudáveis e prontos para lutar.
 - **Save e Load**: Salve o jogo para poder voltar e continuar mais tarde.
 
+## Capturas de Tela
+
+| | |
+| --- | --- |
+| ![Tela inicial](assets/in_game/home.png) | ![Escolha do personagem](assets/in_game/charater_choose.png) |
+| ![Batalha](assets/in_game/battle.png) | ![Bolsa de itens](assets/in_game/bag.png) |
+
 ## Requisitos
 
 Para utilizar o Pokemon Battle Simulator, você precisará ter instalado:
